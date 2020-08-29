@@ -5,7 +5,7 @@
  */
 /*
  Plugin Name: AOC Shortcode
- Plugin URI: https://github.com/Mohamed99ayman/Online-Compiler
+ Plugin URI: https://github.com/EngAhmedWaleed/AOC-Shortcode
  Description: A Plugin for the AOC online compiler that compiles and runs Java, C++, C, Python code.
  Version: 1.0.0
  Author: Ahmed Waleed
@@ -32,4 +32,40 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
+}
+
+add_shortcode( 'aoc_embed', 'aoc_embed' );
+
+function aoc_embed($atts, $content = null){
+
+	$before = '<div style="overflow: hidden; width: 1100px;"> <iframe id="myframe" scrolling="no" src="';
+	$after  = '" style="height: 820px; margin-top: -65px;  margin-left: -174px; width: 1135px;"> </iframe> </div>';
+
+	$array = str_split($content);
+
+	if($atts['lang'] == null || ($atts['lang'] != "c" && $atts['lang'] != "cpp" && $atts['lang'] != "java" && $atts['lang'] != "python"))
+		return "Error, lang attribute is missing or wrong! it should be [c, cpp, java or python].".
+			   "\n<br>Proper use: [aoc_embed lang=\"<span style='font-style: italic; font-weight: 100;'>programming-lang</span>\"] <span style='font-style: italic; font-weight: 100;'>some-code</span> [/aoc_embed]";
+
+	$lang = "?lang=". $atts['lang']. "&code=";
+
+	$code = $lang. "";
+
+	foreach ($array as $char) {
+		if(ord($char) == 10)
+			$char = "\0";
+
+		$encoded = dechex(ord($char));
+
+		if(ord($char) < 16)
+			$code.= ("%0". $encoded);
+		else
+			$code.= ("%". $encoded);
+	}
+
+	$link = "https://aoc.csed22.com/";
+
+	$iframe = $before. $link. $code. $after;
+	return $iframe;
+
 }
