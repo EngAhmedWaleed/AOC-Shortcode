@@ -34,37 +34,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-add_shortcode( 'aoc_embed', 'aoc_embed' );
+add_shortcode( 'code', 'aoc_embed' );
 
 function aoc_embed($atts, $content = null){
 
-	$before = '<div style="overflow: hidden; width: 1100px;"> <iframe id="myframe" scrolling="no" src="';
-	$after  = '" style="height: 820px; margin-top: -65px;  margin-left: -174px; width: 1135px;"> </iframe> </div>';
+	//$before = '<div style="overflow: hidden; width: 1100px;"> <iframe id="myframe" scrolling="no" src="';
+	//$after  = '" style="height: 820px; margin-top: -65px;  margin-left: -174px; width: 1135px;"> </iframe> </div>';
 
-	if($atts['size'] == "forum"){
+	//if($atts['size'] == "forum"){
 		$content = str_replace("&#8216;","'",$content);
 		$content = str_replace("&#8217;","'",$content);
 		$content = str_replace("&#8220;",'"',$content);
 		$content = str_replace("&#8221;",'"',$content);
-		
+
 		/**
 		 * //Debug
 		 * $js_code = 'console.log(' . json_encode($content, JSON_HEX_TAG). ');';
 		 * $js_code = '<script>' . $js_code . '</script>';
 		 * echo $js_code;
 		 */
-
-		/*
-		$before = '<div style="overflow: hidden; width: 1100px;"> <iframe id="myframe" scrolling="no" src="';
-		$after  = '" style="height: 820px; margin-top: -65px;  margin-left: -174px; width: 1135px;"> </iframe> </div>';
-		transform: scale(0.8, 0.8);*/
-	}
+		
+		$before = '<div style="text-align: right; overflow: hidden; width: 500px;"> <iframe id="myframe" scrolling="no" src="';
+		$after  = '" style="transform: scale(0.65, 0.65) perspective(1px); zoom : 99%;'. /*https://stackoverflow.com/a/41469542*/
+				  'height: 830px; margin-top: -190px;  margin-left: -316px; width: 1135px;"> </iframe> </div>';
+	//}
 
 	$array = str_split($content);
 
 	if($atts['lang'] == null || ($atts['lang'] != "c" && $atts['lang'] != "cpp" && $atts['lang'] != "java" && $atts['lang'] != "python"))
 		return "Error, lang attribute is missing or wrong! it should be [c, cpp, java or python].".
-			   "\n<br>Proper use: [aoc_embed lang=\"<span style='font-style: italic; font-weight: 100;'>programming-lang</span>\"] <span style='font-style: italic; font-weight: 100;'>some-code</span> [/aoc_embed]";
+			   "\n<br>Proper use: [code lang=\"<span style='font-style: italic; font-weight: 100;'>programming-lang</span>\"] <span style='font-style: italic; font-weight: 100;'>some-code</span> [/code]";
 
 	$lang = "?lang=". $atts['lang']. "&code=";
 
@@ -84,7 +83,7 @@ function aoc_embed($atts, $content = null){
 
 	$link = "https://aoc.csed22.com/";
 
-	$iframe = $before. $link. $code. $after;
+	$iframe = $before. $link. $code. "&light". $after;
 	return $iframe;
 
 }
