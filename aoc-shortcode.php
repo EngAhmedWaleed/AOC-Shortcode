@@ -41,6 +41,25 @@ function aoc_embed($atts, $content = null){
 	$before = '<div style="overflow: hidden; width: 1100px;"> <iframe id="myframe" scrolling="no" src="';
 	$after  = '" style="height: 820px; margin-top: -65px;  margin-left: -174px; width: 1135px;"> </iframe> </div>';
 
+	if($atts['size'] == "forum"){
+		$content = str_replace("&#8216;","'",$content);
+		$content = str_replace("&#8217;","'",$content);
+		$content = str_replace("&#8220;",'"',$content);
+		$content = str_replace("&#8221;",'"',$content);
+		
+		/**
+		 * //Debug
+		 * $js_code = 'console.log(' . json_encode($content, JSON_HEX_TAG). ');';
+		 * $js_code = '<script>' . $js_code . '</script>';
+		 * echo $js_code;
+		 */
+
+		/*
+		$before = '<div style="overflow: hidden; width: 1100px;"> <iframe id="myframe" scrolling="no" src="';
+		$after  = '" style="height: 820px; margin-top: -65px;  margin-left: -174px; width: 1135px;"> </iframe> </div>';
+		transform: scale(0.8, 0.8);*/
+	}
+
 	$array = str_split($content);
 
 	if($atts['lang'] == null || ($atts['lang'] != "c" && $atts['lang'] != "cpp" && $atts['lang'] != "java" && $atts['lang'] != "python"))
