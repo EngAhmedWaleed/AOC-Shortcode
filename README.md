@@ -4,7 +4,7 @@ Main Project: https://github.com/Mohamed99ayman/Online-Compiler
 
 ## Use Case ##
 shortcode :
-```bash
+```
 [aoc_embed lang="java"]
 // Online Java compiler to run Java online.
 // Write Java code in this online editor and run it.
@@ -20,4 +20,8 @@ class MainClass {
 ```
 
 Result:
+
 ![picture alt](https://github.com/EngAhmedWaleed/AOC-Shortcode/blob/master/example.png)
+
+## Download ##
+Go to realeases page: https://github.com/EngAhmedWaleed/AOC-Shortcode/releases/tag/1.0.0
