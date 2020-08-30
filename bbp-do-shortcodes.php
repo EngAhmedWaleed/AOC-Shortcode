@@ -16,10 +16,10 @@ function pw_bbp_shortcodes($content, $reply_id)
 
 	$content = disable_bad_shortcodes($content);
 
-	if (user_can($reply_author, pw_bbp_parse_capability()))
-		return do_shortcode($content);
+	//if (user_can($reply_author, pw_bbp_parse_capability()))
+	return do_shortcode($content);
 
-	return $content;
+	//return $content;
 }
 
 add_filter('bbp_get_reply_content', 'pw_bbp_shortcodes', 10, 2);
@@ -56,7 +56,7 @@ function contain_shortcode($in_bracket)
 	$in_bracket = str_replace("/", "", $in_bracket);
 
 	//Allowed ones.
-	if(contains("code", $in_bracket))
+	if (contains("code", $in_bracket))
 		return false;
 
 	foreach ($shortcodes as $code => $function) {
